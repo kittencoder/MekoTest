@@ -1,0 +1,14 @@
+###
+### IDE
+###
+.vscode
+
+###
+### Build
+###
+*.o
+*.app
+*.a
+# Debugging sideproducts
+core
+vgcore.*
