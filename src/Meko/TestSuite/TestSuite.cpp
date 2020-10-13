@@ -23,6 +23,24 @@ TestSuite::~TestSuite() {
 void TestSuite::addTest(Test* test) {
     tests.insert(test);
 }
+Report TestSuite::runThisThread(size_t multiplyer) {
+    size_t started = 0;
+    size_t successful = 0;
+    size_t failed = 0;
+    eta.setTotal(tests.size()).start();
+    for (Test* t : tests) {
+        t->runsInSync();
+        t->EXEC();
+        bool fulfilled = t->fulfilled();
+        successful += fulfilled;
+        failed += !fulfilled;
+        doPrintProgress(1, ++started, successful, failed);
+    }
+    if (printProgress) {
+        std::cout << std::endl;
+    }
+    return Report(tests, multiplyer);
+}
 Report TestSuite::run(size_t multiplyer) {
     if (multiplyer < 1) {
         multiplyer = 1;

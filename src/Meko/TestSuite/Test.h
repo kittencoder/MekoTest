@@ -4,6 +4,7 @@
 #include "../Meko.h"
 
 namespace Meko::TestSuite {
+class TestSuite;
 /**
  * a test instance
  */
@@ -12,7 +13,11 @@ class Test : public Exec::Run {
     Test(raw_str_arg testname, raw_str_arg topic, bool shouldSucceed);
 
    protected:
+    friend Meko::TestSuite::TestSuite;
     void EXEC() override;
+    // called by the suite to deactivate cross-process communication...
+    void runsInSync();
+    bool runsUnsync = true;
     void POSTEXEC(bool normalExit) override;
     /**
      * automatically called by this class in the client

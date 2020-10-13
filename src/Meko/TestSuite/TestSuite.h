@@ -39,6 +39,7 @@ class TestSuite {
      * run provided test-cases, returns true if all tests succeed, false if any failed
      */
     Report run(size_t multiplyer = 1);
+    Report runThisThread(size_t multiplyer = 1);
 
    protected:
     /**

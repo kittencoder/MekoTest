@@ -51,6 +51,9 @@ void Test::EXEC() {
     cleanup();
     publishResults();
 }
+void Test::runsInSync() {
+    runsUnsync = false;
+}
 bool Test::prepare() {
     return true;
 }
@@ -61,6 +64,9 @@ void Test::POSTEXEC(bool normalExit) {
     collectResults();
 }
 void Test::publishResults() {
+    if (!runsUnsync) {
+        return;
+    }
     getWritePipe("execTime") << executionTime.count() << std::flush;
     getWritePipe("success") << success << std::flush;
     getWritePipe("errorReason") << reason << std::flush;
