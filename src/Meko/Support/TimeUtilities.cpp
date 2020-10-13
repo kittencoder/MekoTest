@@ -54,7 +54,7 @@ raw_str TimeUtilities::renderSimple(time_hr time, bool precise) {
         }
         r += to_raw_str(ms.count());
         if (precise && ns.count() != 0) {
-            std::string afterComma = to_raw_str(ns.count());
+            raw_str afterComma = to_raw_str(ns.count());
             afterComma.erase(std::remove_if(afterComma.rbegin(), afterComma.rend(),
                                             [](char c) {
                                                 return c != '0';
